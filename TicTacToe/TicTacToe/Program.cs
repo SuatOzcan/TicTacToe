@@ -29,23 +29,23 @@ namespace TicTacToe
 
             void X_Player_Turn() { 
                 Console.WriteLine("Please enter the row in which you want to mark X:");
-                int user_row_choice = int.Parse(Console.ReadLine());
+                int user_row_choice = int.Parse(Console.ReadLine()) - 1;
                 //Console.WriteLine(user_row_choice);
                 Console.WriteLine("Please enter the column in which you want to mark X:");
-                int user_column_choice = int.Parse(Console.ReadLine());
+                int user_column_choice = int.Parse(Console.ReadLine()) - 1;
                 //Console.WriteLine(user_column_choice);
                 board[user_row_choice, user_column_choice] = "X";
             }
 
-            void Y_Player_Turn()
+            void O_Player_Turn()
             {
-                Console.WriteLine("Please enter the row in which you want to mark Y:");
-                int user_row_choice = int.Parse(Console.ReadLine());
+                Console.WriteLine("Please enter the row in which you want to mark O:");
+                int user_row_choice = int.Parse(Console.ReadLine()) - 1;
                 //Console.WriteLine(user_row_choice);
-                Console.WriteLine("Please enter the column in which you want to mark Y:");
-                int user_column_choice = int.Parse(Console.ReadLine());
+                Console.WriteLine("Please enter the column in which you want to mark O:");
+                int user_column_choice = int.Parse(Console.ReadLine()) - 1;
                 //Console.WriteLine(user_column_choice);
-                board[user_row_choice, user_column_choice] = "Y";
+                board[user_row_choice, user_column_choice] = "O";
             }
             bool Checker()
             {
@@ -98,11 +98,16 @@ namespace TicTacToe
             }
 
 
-            while (!Checker()) {
+            while (!Checker()) 
+            {
                 PrintBoard();
                 X_Player_Turn();
+                if (Checker())
+                {
+                    break;
+                }
                 PrintBoard();
-                Y_Player_Turn();
+                O_Player_Turn();
             }
             
 
