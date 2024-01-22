@@ -65,7 +65,9 @@ namespace TicTacToe
                 ////Console.WriteLine(user_column_choice);
                 //board[user_row_choice, user_column_choice] = "O";
                 Console.WriteLine("\nPlease enter the number where you want to write O:");
-                int user_choice = int.Parse(Console.ReadLine()) - 1;
+                //int user_choice;
+                _ = int.TryParse(Console.ReadLine(), out int user_choice);
+                user_choice = user_choice - 1;
                 int column = user_choice % 3;
                 int row = user_choice / 3;
 
