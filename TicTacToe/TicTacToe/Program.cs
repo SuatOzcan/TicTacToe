@@ -36,7 +36,8 @@ namespace TicTacToe
                 ////Console.WriteLine(user_column_choice);
                 //board[user_row_choice, user_column_choice] = "X";
                 Console.WriteLine("\nPlease enter the number where you want to write X:");
-                int user_choice = int.Parse(Console.ReadLine()) - 1; // For computer indeces.
+                _ = int.TryParse(Console.ReadLine(), out int user_choice); // For computer indeces.
+                user_choice = user_choice - 1;
                 int column = user_choice % 3;
                 int row = user_choice / 3;
                 if (0 > row || row > 2 || column < 0) // If the user enters 0. user_choice is -1 and row is 0. So I check the column.
@@ -136,20 +137,30 @@ namespace TicTacToe
                 return false;
             }
 
-
-            while (!Checker()) 
+            bool gameOver = false;
+            while (!gameOver)
             {
-                PrintBoard();
-                X_Player_Turn();
-                if (Checker())
+                while (!Checker())
                 {
-                    break;
+                    PrintBoard();
+                    X_Player_Turn();
+                    if (Checker())
+                    {
+                        break;
+                    }
+                    PrintBoard();
+                    O_Player_Turn();
                 }
-                PrintBoard();
-                O_Player_Turn();
+                Console.WriteLine("Would you like to play again? Y \\ N");
+                string answer = Console.ReadLine();
+                if (answer == "N" || answer == "n")
+                {
+                    gameOver = true;
+                    Console.WriteLine("Thanks for playing. Take care!");
+                }
+                board = new string[,] { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "8", "9" } };
             }
-            
-
+             
         }
     }
 }
