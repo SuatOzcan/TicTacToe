@@ -1,13 +1,10 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace TicTacToe
+﻿namespace TicTacToe
 {
     internal class Program
     {
         static void Main(string[] args)
         {
             string[,] board = new string[,] { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "8", "9" } };
-
 
             void PrintBoard()
             {
@@ -25,17 +22,18 @@ namespace TicTacToe
                 }
             }
 
-            
-
-            void X_Player_Turn() {
-                //Console.WriteLine("Please enter the row in which you want to mark X:");
-                //int user_row_choice = int.Parse(Console.ReadLine()) - 1;
-                ////Console.WriteLine(user_row_choice);
-                //Console.WriteLine("Please enter the column in which you want to mark X:");
-                //int user_column_choice = int.Parse(Console.ReadLine()) - 1;
-                ////Console.WriteLine(user_column_choice);
-                //board[user_row_choice, user_column_choice] = "X";
-                Console.WriteLine("\nPlease enter the number where you want to write X:");
+            void Mark(int player)
+            {
+                string character = "";
+                if (player == 1)
+                {
+                    character = "X";
+                }
+                if (player == 2)
+                {
+                    character = "Y";
+                }
+                Console.WriteLine($"\nPlease enter the number where you want to write {character}:");
                 _ = int.TryParse(Console.ReadLine(), out int user_choice); // For computer indeces.
                 user_choice = user_choice - 1;
                 int column = user_choice % 3;
@@ -43,50 +41,19 @@ namespace TicTacToe
                 if (0 > row || row > 2 || column < 0) // If the user enters 0. user_choice is -1 and row is 0. So I check the column.
                 {
                     Console.WriteLine("Please enter a value between 1 and 9.");
-                    X_Player_Turn();
+                    Mark(player);
                 }
                 else if (board[row, column] != "X" && board[row, column] != "O")
                 {
-                    board[row, column] = "X";
+                    board[row, column] = character;
                 }
                 else
                 {
                     Console.WriteLine("That position is already marked.");
-                    X_Player_Turn();
+                    Mark(player);
                 }
             }
 
-            void O_Player_Turn()
-            {
-                //Console.WriteLine("Please enter the row in which you want to mark O:");
-                //int user_row_choice = int.Parse(Console.ReadLine()) - 1;
-                ////Console.WriteLine(user_row_choice);
-                //Console.WriteLine("Please enter the column in which you want to mark O:");
-                //int user_column_choice = int.Parse(Console.ReadLine()) - 1;
-                ////Console.WriteLine(user_column_choice);
-                //board[user_row_choice, user_column_choice] = "O";
-                Console.WriteLine("\nPlease enter the number where you want to write O:");
-                //int user_choice;
-                _ = int.TryParse(Console.ReadLine(), out int user_choice);
-                user_choice = user_choice - 1;
-                int column = user_choice % 3;
-                int row = user_choice / 3;
-
-                if (0 > row || row > 2 || column < 0)
-                {
-                    Console.WriteLine("Please enter a value between 1 and 9.");
-                    O_Player_Turn();
-                }
-                else if (board[row, column] != "X" && board[row, column] != "O")
-                {
-                    board[row, column] = "O";
-                }
-                else
-                {
-                    Console.WriteLine("That position is marked already.");
-                    O_Player_Turn();
-                }
-            }
             bool Checker()
             {
                 void WinnerNamePrinter(string playerMark)
@@ -142,14 +109,16 @@ namespace TicTacToe
             {
                 while (!Checker())
                 {
+                    int player = 1;
                     PrintBoard();
-                    X_Player_Turn();
+                    Mark(player);
                     if (Checker())
                     {
                         break;
                     }
+                    player = 2;
                     PrintBoard();
-                    O_Player_Turn();
+                    Mark(player);
                 }
                 Console.WriteLine("Would you like to play again? Y \\ N");
                 string answer = Console.ReadLine();
