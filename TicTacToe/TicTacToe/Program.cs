@@ -27,25 +27,62 @@ namespace TicTacToe
 
             
 
-            void X_Player_Turn() { 
-                Console.WriteLine("Please enter the row in which you want to mark X:");
-                int user_row_choice = int.Parse(Console.ReadLine()) - 1;
-                //Console.WriteLine(user_row_choice);
-                Console.WriteLine("Please enter the column in which you want to mark X:");
-                int user_column_choice = int.Parse(Console.ReadLine()) - 1;
-                //Console.WriteLine(user_column_choice);
-                board[user_row_choice, user_column_choice] = "X";
+            void X_Player_Turn() {
+                //Console.WriteLine("Please enter the row in which you want to mark X:");
+                //int user_row_choice = int.Parse(Console.ReadLine()) - 1;
+                ////Console.WriteLine(user_row_choice);
+                //Console.WriteLine("Please enter the column in which you want to mark X:");
+                //int user_column_choice = int.Parse(Console.ReadLine()) - 1;
+                ////Console.WriteLine(user_column_choice);
+                //board[user_row_choice, user_column_choice] = "X";
+                Console.WriteLine("\nPlease enter the number where you want to write X:");
+                int user_choice = int.Parse(Console.ReadLine()) - 1; // For computer indeces.
+                int column = user_choice % 3;
+                int row = user_choice / 3;
+                if (0 > row || row > 2 || column < 0) // If the user enters 0. user_choice is -1 and row is 0. So I check the column.
+                {
+                    Console.WriteLine("Please enter a value between 1 and 9.");
+                    X_Player_Turn();
+                }
+                else if (board[row, column] != "X" && board[row, column] != "O")
+                {
+                    board[row, column] = "X";
+                }
+                else
+                {
+                    Console.WriteLine("That position is already marked.");
+                    X_Player_Turn();
+                }
             }
 
             void O_Player_Turn()
             {
-                Console.WriteLine("Please enter the row in which you want to mark O:");
-                int user_row_choice = int.Parse(Console.ReadLine()) - 1;
-                //Console.WriteLine(user_row_choice);
-                Console.WriteLine("Please enter the column in which you want to mark O:");
-                int user_column_choice = int.Parse(Console.ReadLine()) - 1;
-                //Console.WriteLine(user_column_choice);
-                board[user_row_choice, user_column_choice] = "O";
+                //Console.WriteLine("Please enter the row in which you want to mark O:");
+                //int user_row_choice = int.Parse(Console.ReadLine()) - 1;
+                ////Console.WriteLine(user_row_choice);
+                //Console.WriteLine("Please enter the column in which you want to mark O:");
+                //int user_column_choice = int.Parse(Console.ReadLine()) - 1;
+                ////Console.WriteLine(user_column_choice);
+                //board[user_row_choice, user_column_choice] = "O";
+                Console.WriteLine("\nPlease enter the number where you want to write O:");
+                int user_choice = int.Parse(Console.ReadLine()) - 1;
+                int column = user_choice % 3;
+                int row = user_choice / 3;
+
+                if (0 > row || row > 2 || column < 0)
+                {
+                    Console.WriteLine("Please enter a value between 1 and 9.");
+                    O_Player_Turn();
+                }
+                else if (board[row, column] != "X" && board[row, column] != "O")
+                {
+                    board[row, column] = "O";
+                }
+                else
+                {
+                    Console.WriteLine("That position is marked already.");
+                    O_Player_Turn();
+                }
             }
             bool Checker()
             {
