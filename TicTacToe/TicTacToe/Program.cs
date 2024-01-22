@@ -104,11 +104,13 @@
                 return false;
             }
 
+            short turns = 0;
             bool gameOver = false;
             while (!gameOver)
             {
                 while (!Checker())
                 {
+
                     int player = 1;
                     PrintBoard();
                     Mark(player);
@@ -116,9 +118,17 @@
                     {
                         break;
                     }
+                    if (turns == 4)
+                    {
+                        Console.WriteLine("The games is a draw.");
+                        PrintBoard();
+                        break;
+                    }
                     player = 2;
                     PrintBoard();
                     Mark(player);
+                    turns++;
+
                 }
                 Console.WriteLine("Would you like to play again? Y \\ N");
                 string answer = Console.ReadLine();
