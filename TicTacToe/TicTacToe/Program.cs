@@ -104,7 +104,7 @@
                 return false;
             }
 
-            short turns = 0;
+            short turns = 1;
             bool gameOver = false;
             while (!gameOver)
             {
@@ -118,7 +118,7 @@
                     {
                         break;
                     }
-                    if (turns == 4)
+                    if (turns == 5)
                     {
                         Console.WriteLine("The games is a draw.");
                         PrintBoard();
@@ -130,6 +130,7 @@
                     turns++;
 
                 }
+                turns = 1;
                 Console.WriteLine("Would you like to play again? Y \\ N");
                 string answer = Console.ReadLine();
                 if (answer == "N" || answer == "n")
